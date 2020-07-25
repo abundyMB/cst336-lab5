@@ -3,12 +3,14 @@ const app = express();
 const request = require("request");
 
 app.set("view engine", "ejs");
+app.use(express.static("public"));
 
 // Routes
 app.get("/", async function(req, res) {
-    let imageUrlArray = await getRandomImage("", 1);
+    // let imageUrlArray = await getRandomImage("", 1);
     // res.render("index", {"imageUrlArray": imageUrlArray});
-    res.render("index");
+    res.render("index", {"imageUrlArray": testArr(1)});
+    // res.render("index");
 });
 
 app.get("/search", async function(req, res) {
@@ -18,8 +20,9 @@ app.get("/search", async function(req, res) {
         keyword = req.query.keyword;
     }
     
-    let imageUrlArray = await getRandomImage(keyword, 9);
-    res.render("results", {"imageUrlArray": imageUrlArray});
+    // let imageUrlArray = await getRandomImage(keyword, 9);
+    // res.render("results", {"imageUrlArray": imageUrlArray});
+    res.render("results", {"imageUrlArray": testArr(9)});
 });
 
 function getRandomImage(keyword, count) {
@@ -55,3 +58,13 @@ app.listen(process.env.PORT, process.env.IP, function() {
 
 // Access key
 //-d4k5xHqkg-SEkflpqh8dqol2YjkQqVJD91mXmVRhOc
+
+function testArr(count) {
+    var arr = [];
+    var pic = 'img/pluto.jpg';
+    for (let i = 0; i < count; i++) {
+        arr.push(pic);
+    }
+    
+    return arr;
+}

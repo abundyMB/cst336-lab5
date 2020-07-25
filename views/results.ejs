@@ -11,7 +11,9 @@
             </form>
             <hr />
             <% for (let i = 0; i < 9; i++) { %>
+                <%- (i % 3 == 0) ? '<br />': '' %>
                 <img src='<%= imageUrlArray[i] %>' width='200' height='200' />
+                <img class="favortiteIcon" src='img/favorite.png' width='20' />
            <% } %>
             
             
