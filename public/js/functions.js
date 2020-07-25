@@ -3,11 +3,34 @@ $(document).ready(function() {
    
    $(".favortiteIcon").on("click", function() {
       
-      if($(this).attr("src") == "img/favorite.png") 
+      let queryString = window.location.search;
+      let urlParams = new URLSearchParams(queryString);
+      let keyword = urlParams.get("keyword");
+      
+      let imageUrl = $(this).prev().attr("src");
+      
+      if($(this).attr("src") == "img/favorite.png") {
           $(this).attr("src", "img/favorite_on.png");
-      else
+          updateFavorite("add", imageUrl, keyword);
+      }
+      else {
         $(this).attr("src", "img/favorite.png");
-        
-        
+        updateFavorite("delete", imageUrl);
+      }
    }); 
+   
+   function updateFavorite(action, imageUrl, keyword) {
+       $.ajax({
+           method: "get",
+           url: "/api/updateFavorites",
+           data: {
+               "action": action,
+               "imageUrl": imageUrl,
+               "keyword": keyword
+           },
+           success: function(data, status) {
+               
+           }
+       });
+   }
 });
