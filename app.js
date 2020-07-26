@@ -42,8 +42,29 @@ app.get("/api/updateFavorites", function(req, res){
     console.log(rows);
     res.send(rows.affectedRows.toString());
   });
-    
 });//api/updateFavorites
+
+
+app.get("/getKeywords",  function(req, res) {
+  let sql = "SELECT DISTINCT keyword FROM favorites ORDER BY keyword";
+  let imageUrlArray = ["img/favorite.png"];
+  pool.query(sql, function (err, rows, fields) {
+     if (err) throw err;
+     console.log(rows);
+     res.render("favorites", {"imageUrlArray": imageUrlArray, "rows":rows});
+  });  
+});//getKeywords
+
+app.get("/api/getFavorites", function(req, res){
+  let sql = "SELECT imageURL FROM favorites WHERE keyword = ?";
+  let sqlParams = [req.query.keyword];  
+  pool.query(sql, sqlParams, function (err, rows, fields) {
+    if (err) throw err;
+    console.log(rows);
+    res.send(rows);
+  });
+    
+});//api/getFavorites
 
 
 function getRandomImage(keyword, count) {
@@ -68,24 +89,7 @@ function getRandomImage(keyword, count) {
     });
 }
 
-// app.get("/pluto", function(req, res) {
-//   res.render("pluto.html"); 
-// });
-
 // starting server
 app.listen(process.env.PORT, process.env.IP, function() {
   console.log("Express server is running..."); 
 });
-
-// Access key
-//-d4k5xHqkg-SEkflpqh8dqol2YjkQqVJD91mXmVRhOc
-
-function testArr(count) {
-    var arr = [];
-    var pic = 'img/pluto.jpg';
-    for (let i = 0; i < count; i++) {
-        arr.push(pic);
-    }
-    
-    return arr;
-}
