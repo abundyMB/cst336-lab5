@@ -6,19 +6,21 @@
     }
 </style>
     <div id="favContainer">
-       <a href="/"> Back to Search </a>
+        <br />
+        <a class="link" href="/"> Back to Search </a>
         
-       <h1>Favorite Pics</h1>
+        <h1>Favorite Pics</h1>
         
-       <% 
-           //displaying five keywords per line
-          rows.forEach(function(row, i){ %>
+        <% 
+            //displaying five keywords per line
+           rows.forEach(function(row, i){ %>
            
-            <a class="keywordLink" href="#"><%= row["keyword"] %></a>
+             <a class="keywordLink" href="#"><%= row["keyword"] %></a>
         
-            <%- ((i+1) % 6 == 0)?'<br><br>':'' %>
+             <%- ((i+1) % 6 == 0)?'<br><br>':'' %>
         
         <% });%>
+        <br /><br />
         
         <div id="favorites"></div>
         

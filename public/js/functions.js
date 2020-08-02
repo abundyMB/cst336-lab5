@@ -17,9 +17,9 @@ $(document).ready(function() {
         $(this).attr("src", "img/favorite.png");
         updateFavorite("delete", imageUrl);
       }
-   }); 
+   }); // .favoriteIcon
    
-    //When clicking on any keyword link, all corresponding images are displayed 
+    //When clicking on any keyword link, all corresponding images are displayed. 
     $(".keywordLink").on("click", function(){
                 
       let keyword = $(this).html().trim();  
@@ -41,23 +41,22 @@ $(document).ready(function() {
                       
                $("#favorites").append(htmlString);
             }
-        });//ajax
-    
-    });//keywordLink
+        }); // ajax
+    }); // .keywordLink
 
-    //Event for dynamic content generated when clicking on a keyword    
+    // Event for dynamic content generated when clicking on a keyword.   
     $("#favorites").on("click", ".favoriteIcon", function(){
                 
         let favorite = $(this).prev().attr("src");
             
         if ($(this).attr("src") == 'img/favorite.png') {
             $(this).attr("src","img/favorite_on.png");
-            updateFavorite("add",favorite, $("#keywordSelected").val());
+            updateFavorite("add", favorite, $("#keywordSelected").val());
         } else {
             $(this).attr("src","img/favorite.png");
-            updateFavorite("delete",favorite);
+            updateFavorite("delete", favorite);
         }
-    });//.favoriteIcon
+    }); // .favoriteIcon
    
    function updateFavorite(action, imageUrl, keyword) {
        $.ajax({
@@ -71,7 +70,6 @@ $(document).ready(function() {
            success: function(data, status) {
                
            }
-       });
-   }
-});
-
+       }); // ajax
+   } // updateFavorite
+}); // document.ready

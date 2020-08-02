@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const request = require("request");
-const pool = require("./dbPool.js")
+const pool = require("./dbPool.js");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -10,8 +10,6 @@ app.use(express.static("public"));
 app.get("/", async function(req, res) {
     let imageUrlArray = await getRandomImage("", 1);
     res.render("index", {"imageUrlArray": imageUrlArray});
-    // res.render("index", {"imageUrlArray": testArr(1)});
-    // res.render("index");
 });
 
 app.get("/search", async function(req, res) {
@@ -23,7 +21,6 @@ app.get("/search", async function(req, res) {
     
     let imageUrlArray = await getRandomImage(keyword, 9);
     res.render("results", {"imageUrlArray": imageUrlArray});
-    // res.render("results", {"imageUrlArray": testArr(9)});
 });
 
 app.get("/api/updateFavorites", function(req, res){
@@ -36,13 +33,12 @@ app.get("/api/updateFavorites", function(req, res){
     case "delete": sql = "DELETE FROM favorites WHERE imageUrl = ?";
                 sqlParams = [req.query.imageUrl];
                 break;
-  }//switch
+  }
   pool.query(sql, sqlParams, function (err, rows, fields) {
     if (err) throw err;
-    console.log(rows);
     res.send(rows.affectedRows.toString());
   });
-});//api/updateFavorites
+}); 
 
 
 app.get("/getKeywords",  function(req, res) {
@@ -50,22 +46,19 @@ app.get("/getKeywords",  function(req, res) {
   let imageUrlArray = ["img/favorite.png"];
   pool.query(sql, function (err, rows, fields) {
      if (err) throw err;
-     console.log(rows);
      res.render("favorites", {"imageUrlArray": imageUrlArray, "rows":rows});
   });  
-});//getKeywords
+});
 
 app.get("/api/getFavorites", function(req, res){
   let sql = "SELECT imageURL FROM favorites WHERE keyword = ?";
   let sqlParams = [req.query.keyword];  
   pool.query(sql, sqlParams, function (err, rows, fields) {
     if (err) throw err;
-    console.log(rows);
     res.send(rows);
   });
     
-});//api/getFavorites
-
+});
 
 function getRandomImage(keyword, count) {
     
@@ -81,8 +74,6 @@ function getRandomImage(keyword, count) {
                 resolve(imageUrlArray);
             }
             else {
-                console.log("error: ", error);
-                console.log('statusCode:', response && response.statusCode);
                 reject(error);
             }
         });

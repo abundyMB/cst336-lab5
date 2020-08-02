@@ -4,7 +4,7 @@ main {
     margin: 100px auto;
     border-radius: 25px;
     padding: 10px;
-    font-size: 2.5em;
+    font-size: 2em;
 }
 
 h1 {
@@ -47,4 +47,12 @@ input, button {
   margin:5px;
   padding-left: 5px;
   padding-right: 5px
+}
+
+footer {
+  background-color: rgba(250,250,250,0.50);
+  display: inline-block;
+  padding: 15px;
+  border-radius: 25px;
+  margin:0 auto;
 }
